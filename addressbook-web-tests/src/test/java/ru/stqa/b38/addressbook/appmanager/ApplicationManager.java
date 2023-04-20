@@ -33,6 +33,11 @@ public class ApplicationManager {
     wd.quit();
   }
 
+  public void alertAccept() {
+    wd.switchTo().alert().accept();
+  }
+
+
   public GroupHelper getGroupHelper() {
     return groupHelper;
   }

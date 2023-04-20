@@ -38,4 +38,12 @@ public class ContactHelper extends BaseHelper {
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteContact() {
+    click(By.xpath("//input[@value='Delete']"));
+  }
 }
