@@ -46,4 +46,15 @@ public class ContactHelper extends BaseHelper {
   public void deleteContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
+
+  public void createContact(ContactData contact) {
+    initContactCreation();
+    fillContactForm(contact);
+    submitContactCreation();
+    returnToHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }
