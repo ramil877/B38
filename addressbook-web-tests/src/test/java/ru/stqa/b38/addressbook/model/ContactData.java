@@ -3,6 +3,7 @@ package ru.stqa.b38.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private int id;
   private final String firstname;
   private final String lastname;
   private final String address;
@@ -10,6 +11,7 @@ public class ContactData {
   private final String email;
 
   public ContactData(String firstname, String lastname, String address, String mobile, String email) {
+    this.id = Integer.MAX_VALUE;
     this.firstname = firstname;
     this.lastname = lastname;
     this.address = address;
@@ -17,6 +19,18 @@ public class ContactData {
     this.email = email;
   }
 
+  public ContactData(int id, String firstname, String lastname, String address, String mobile, String email) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.address = address;
+    this.mobile = mobile;
+    this.email = email;
+  }
+
+  public int getId() {
+    return id;
+  }
   public String getFirstname() {
     return firstname;
   }
@@ -40,7 +54,8 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstname='" + firstname + '\'' +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             '}';
   }
