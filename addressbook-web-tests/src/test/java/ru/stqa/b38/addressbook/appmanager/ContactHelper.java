@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.b38.addressbook.model.ContactData;
+import ru.stqa.b38.addressbook.model.Contacts;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class ContactHelper extends BaseHelper {
         click(By.name("update"));
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteContact() {
@@ -60,6 +61,17 @@ public class ContactHelper extends BaseHelper {
         submitContactCreation();
         returnToHomePage();
     }
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteContact();
+        waitAlertAccept(Duration.ofSeconds(2));
+        wd.switchTo().alert().accept();
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
@@ -71,6 +83,17 @@ public class ContactHelper extends BaseHelper {
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
+        for (WebElement element : elements) {
+            String firstname = element.findElement(By.xpath(".//td[3]")).getText();
+            String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+        }
+        return contacts;
+    }
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
         for (WebElement element : elements) {
             String firstname = element.findElement(By.xpath(".//td[3]")).getText();
