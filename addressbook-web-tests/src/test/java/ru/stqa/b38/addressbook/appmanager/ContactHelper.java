@@ -9,7 +9,6 @@ import ru.stqa.b38.addressbook.model.ContactData;
 import ru.stqa.b38.addressbook.model.Contacts;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends BaseHelper {
@@ -61,6 +60,7 @@ public class ContactHelper extends BaseHelper {
         submitContactCreation();
         returnToHomePage();
     }
+
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteContact();
@@ -73,6 +73,13 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
+    public void modify(ContactData contact) {
+        initModification();
+        fillForm(contact);
+        submitModification();
+        returnToHomePage();
+    }
+
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
@@ -81,17 +88,6 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
-        for (WebElement element : elements) {
-            String firstname = element.findElement(By.xpath(".//td[3]")).getText();
-            String lastname = element.findElement(By.xpath(".//td[2]")).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
-        }
-        return contacts;
-    }
     public Contacts all() {
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
