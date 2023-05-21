@@ -1,20 +1,20 @@
 package ru.stqa.b38.addressbook.tests;
 
 import org.openqa.selenium.remote.Browser;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import ru.stqa.b38.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
     protected static final ApplicationManager app = new ApplicationManager(Browser.FIREFOX);
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
         app.init();
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         app.stop();
     }
