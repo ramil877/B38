@@ -26,7 +26,7 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillForm(ContactData contactData) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("address"), contactData.getAddress());
@@ -38,11 +38,11 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
     }
 
-    public void initContactModification() {
+    public void initModification() {
         click(By.xpath("//img[@alt='Edit']"));
     }
 
-    public void submitContactModification() {
+    public void submitModification() {
         click(By.name("update"));
     }
 
@@ -54,9 +54,9 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         initContactCreation();
-        fillContactForm(contact);
+        fillForm(contact);
         submitContactCreation();
         returnToHomePage();
     }
@@ -69,7 +69,7 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//*[@name='entry']"));
         for (WebElement element : elements) {

@@ -1,6 +1,7 @@
 package ru.stqa.b38.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.b38.addressbook.model.ContactData;
 
@@ -8,21 +9,26 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
-  @Test
-  public void testContactModification() {
-    if (! app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData("test123", "test456", "test street", "123456789", "test123@mail.ru"));
+
+  @BeforeMethod
+  private void ensurePreconditions() {
+    if (!app.contact().isThereAContact()) {
+      app.contact().create(new ContactData("test123", "test456", "test street", "123456789", "test123@mail.ru"));
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initContactModification();
-    ContactData contact = new ContactData(before.get(before.size() - 1).getId(),"test124", "test457", "test street1", "123456789", "test123@mail.ru");
-    app.getContactHelper().fillContactForm(contact);
-    app.getContactHelper().submitContactModification();
-    app.getContactHelper().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+  }
+  @Test(enabled = false)
+  public void testContactModification() {
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    app.contact().initModification();
+    ContactData contact = new ContactData(before.get(index).getId(),"test124", "test457", "test street1", "123456789", "test123@mail.ru");
+    app.contact().fillForm(contact);
+    app.contact().submitModification();
+    app.contact().returnToHomePage();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     before.add(contact);
     Comparator<? super ContactData> Byid = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(Byid);

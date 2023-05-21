@@ -10,16 +10,15 @@ import java.util.List;
 public class GroupCreationTests extends TestBase {
 
 
-  @Test
+  @Test//(enabled = false)
   public void testGroupCreation() throws Exception {
 
-    app.getNavigationHelper().gotoGroupPage();
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    GroupData group = new GroupData("test1", "null", "null");
-    app.getGroupHelper().createGroup(group);
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    app.goTo().groupPage();
+    List<GroupData> before = app.group().list();
+    GroupData group = new GroupData().withName("test1");
+    app.group().create(group);
+    List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
-    app.getLogout();
 
     before.add(group);
     Comparator<? super GroupData> Byid = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
