@@ -92,6 +92,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     private Contacts contactCache = null;
+
     public Contacts all() {
         if (contactCache != null) {
             return new Contacts(contactCache);
@@ -134,6 +135,6 @@ public class ContactHelper extends BaseHelper {
     }
 
     private void initContactModificationById(int id) {
-        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 }
