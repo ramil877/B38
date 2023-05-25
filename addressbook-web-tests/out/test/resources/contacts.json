@@ -13,40 +13,5 @@
     "firstname": "test 2",
     "lastname": "lastname 2",
     "address": "address 2"
-  },
-  {
-    "firstname": "test 3",
-    "lastname": "lastname 3",
-    "address": "address 3"
-  },
-  {
-    "firstname": "test 4",
-    "lastname": "lastname 4",
-    "address": "address 4"
-  },
-  {
-    "firstname": "test 5",
-    "lastname": "lastname 5",
-    "address": "address 5"
-  },
-  {
-    "firstname": "test 6",
-    "lastname": "lastname 6",
-    "address": "address 6"
-  },
-  {
-    "firstname": "test 7",
-    "lastname": "lastname 7",
-    "address": "address 7"
-  },
-  {
-    "firstname": "test 8",
-    "lastname": "lastname 8",
-    "address": "address 8"
-  },
-  {
-    "firstname": "test 9",
-    "lastname": "lastname 9",
-    "address": "address 9"
   }
 ]
