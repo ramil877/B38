@@ -1,6 +1,5 @@
 package ru.stqa.b38.addressbook.tests;
 
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.stqa.b38.addressbook.appmanager.ApplicationManager;
 
@@ -14,7 +13,7 @@ public class TestBase {
         app.init();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         app.stop();
     }
