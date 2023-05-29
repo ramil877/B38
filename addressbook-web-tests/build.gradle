@@ -13,18 +13,6 @@ apply plugin: 'java'
       implementation 'com.beust:jcommander:1.82'
       implementation 'com.google.code.gson:gson:2.10.1'
       implementation 'com.thoughtworks.xstream:xstream:1.4.20'
-
   }
-task testGroups(type: Test) {
-    useTestNG {
-        suites 'src/test/resources/testng-groups.xml'
-    }
-}
-
-task testContacts(type: Test) {
-    useTestNG {
-        suites 'src/test/resources/testng-contacts.xml'
-    }
-}
 
 
