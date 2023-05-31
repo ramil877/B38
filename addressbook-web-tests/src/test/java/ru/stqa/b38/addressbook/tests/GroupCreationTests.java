@@ -7,7 +7,10 @@ import org.testng.annotations.Test;
 import ru.stqa.b38.addressbook.model.GroupData;
 import ru.stqa.b38.addressbook.model.Groups;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +20,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
+
+
 
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
@@ -56,5 +61,4 @@ public class GroupCreationTests extends TestBase {
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
-
 }
