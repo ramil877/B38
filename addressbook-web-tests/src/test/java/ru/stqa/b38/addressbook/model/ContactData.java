@@ -13,6 +13,7 @@ public class ContactData {
     @Id
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
     @Column(name = "firstname")
     private String firstname;
@@ -23,25 +24,37 @@ public class ContactData {
     @Column(name = "address")
     @Type(type = "text")
     private String address;
+    @Expose
     @Column(name = "email")
     @Type(type = "text")
     private String email;
-    @Column(name = "email2")
-    @Type(type = "text")
+    //@Expose
+    //@Column(name = "email2")
+    //@Type(type = "text")
+    @Transient
     private String email2;
-    @Column(name = "email3")
-    @Type(type = "text")
+    //@Expose
+    //@Column(name = "email3")
+    //@Type(type = "text")
+    @Transient
     private String email3;
+    //@Transient
     @Transient
     private String mobile;
-    @Column(name = "home")
-    @Type(type = "text")
+    //@Expose
+    //@Column(name = "home")
+    //@Type(type = "text")
+    @Transient
     private String homePhone;
-    @Column(name = "mobile")
-    @Type(type = "text")
+    //@Expose
+    //@Column(name = "mobile")
+    //@Type(type = "text")
+    @Transient
     private String mobilePhone;
-    @Column(name = "work")
-    @Type(type = "text")
+    //@Expose
+    //@Column(name = "work")
+    //@Type(type = "text")
+    @Transient
     private String workPhone;
     @Transient
     private String allPhones;
@@ -162,7 +175,18 @@ public class ContactData {
         this.allEmails = allEmails;
         return this;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(homePhone, that.homePhone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, lastname, address, email, email2, email3, homePhone, mobilePhone, workPhone);
+    }
 
     @Override
     public String toString() {
@@ -170,19 +194,15 @@ public class ContactData {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
-    }
 }

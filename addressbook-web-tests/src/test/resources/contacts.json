@@ -1,17 +1,8 @@
 [
   {
-    "firstname": "test 0",
-    "lastname": "lastname 0",
-    "address": "address 0"
-  },
-  {
     "firstname": "test 1",
     "lastname": "lastname 1",
-    "address": "address 1"
-  },
-  {
-    "firstname": "test 2",
-    "lastname": "lastname 2",
-    "address": "address 2"
+    "address": "address 1",
+    "email": "test123@mail.ru"
   }
 ]
