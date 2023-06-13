@@ -13,7 +13,9 @@ import ru.stqa.b38.addressbook.model.GroupData;
 import ru.stqa.b38.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -62,5 +64,13 @@ public class TestBase {
                     .map((c) -> new ContactData().withId(c.getId()).withFirstname(c.getFirstname())
                             .withLastname(c.getLastname()).withAddress(c.getAddress())).collect(Collectors.toSet())));
         }
+    }
+    public List<GroupData> freeGroups() {
+        ContactData contact = app.db().contacts().iterator().next();
+        Groups groupsWithContact = contact.getGroups();
+        Groups allGroups = app.db().groups();
+        List<GroupData> groups = new ArrayList<>(allGroups);
+        groups.removeAll(groupsWithContact);
+        return groups;
     }
 }

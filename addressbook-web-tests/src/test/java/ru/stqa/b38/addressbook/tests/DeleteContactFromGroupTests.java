@@ -12,21 +12,16 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+public class DeleteContactFromGroupTests extends TestBase {
 
-public class ContactToGroupTests extends TestBase {
     @BeforeMethod
     private void ensurePreconditions() {
         if (app.db().contacts().size() == 0) {
             app.contact().create(new ContactData()
                     .withFirstname("test123").withLastname("test456").withAddress("test street").withMobile("123456789").withEmail("test123@mail.ru"));
         }
-    }
-
-    @Test//(enabled = false)
-    public void testContactToGroup() {
-
         ContactData contact = app.db().contacts().iterator().next();
-        if (freeGroups().size() == 0) {
+        if (contact.getGroups().size() == 0) {
             Groups groupsBefore = app.db().groups();
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("name1").withHeader("header1").withFooter("footer1"));
@@ -36,16 +31,19 @@ public class ContactToGroupTests extends TestBase {
             int usedGroup = newGroup.iterator().next().getId();
             app.goTo().homePage();
             app.contact().addingToGroup(contact.getId(), usedGroup);
-
-            assertThat(freeGroups().size(), equalTo(0));
-        } else {
-            Groups groupsBefore = contact.getGroups();
-            int usedGroup = freeGroups().iterator().next().getId();
-            app.contact().addingToGroup(contact.getId(), usedGroup);
-            ContactData contactData = app.db().contacts().iterator().next();
-            Groups groupsAfter = contactData.getGroups();
-
-            assertThat(groupsAfter.size(), equalTo(groupsBefore.size() + 1));
         }
+    }
+
+    @Test//(enabled = false)
+    public void testDeleteContactFromGroup() {
+        app.goTo().homePage();
+        ContactData contact = app.db().contacts().iterator().next();
+        Groups groupsBefore = contact.getGroups();
+        int usedGroup = contact.getGroups().iterator().next().getId();
+        app.contact().deletionFromGroup(usedGroup, contact.getId());
+        ContactData contactData = app.db().contacts().iterator().next();
+        Groups groupsAfter = contactData.getGroups();
+
+        assertThat(groupsBefore.size() - 1, equalTo(groupsAfter.size()));
     }
 }
