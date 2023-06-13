@@ -12,4 +12,7 @@ public class NavigationHelper extends BaseHelper {
   public void groupPage() {
     click(By.linkText("groups"));
   }
+  public void homePage() {
+    click(By.linkText("home"));
+  }
 }

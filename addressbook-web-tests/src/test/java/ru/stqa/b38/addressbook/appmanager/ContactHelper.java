@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.b38.addressbook.model.ContactData;
 import ru.stqa.b38.addressbook.model.Contacts;
@@ -49,9 +50,21 @@ public class ContactHelper extends BaseHelper {
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
-
+    public void chooseGroupNameToShowById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+    public void chooseGroupNameToAdd(int groupId) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format(String.valueOf(groupId), ("%d")));
+    }
     public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public void addToGroup() {
+        click(By.name("add"));
+    }
+    public void goToGroupPage() {
+        click(By.xpath("//div[@id='content']/div/i/a"));
     }
 
     public void create(ContactData contact) {
@@ -81,6 +94,15 @@ public class ContactHelper extends BaseHelper {
         submitModification();
         contactCache = null;
         homePage();
+    }
+
+    public void addingToGroup(int contactId, int groupId) {
+
+        selectContactById(contactId);
+        chooseGroupNameToAdd(groupId);
+        addToGroup();
+        contactCache = null;
+
     }
 
     public boolean isThereAContact() {
