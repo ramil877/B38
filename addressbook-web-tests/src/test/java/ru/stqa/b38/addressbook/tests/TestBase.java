@@ -69,7 +69,7 @@ public class TestBase {
         ContactData contact = app.db().contacts().iterator().next();
         Groups groupsWithContact = contact.getGroups();
         Groups allGroups = app.db().groups();
-        List<GroupData> groups = new ArrayList<>(allGroups);
+        List<GroupData> groups = new ArrayList<GroupData>(allGroups);
         groups.removeAll(groupsWithContact);
         return groups;
     }
