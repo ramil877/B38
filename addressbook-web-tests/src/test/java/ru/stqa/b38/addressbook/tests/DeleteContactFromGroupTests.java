@@ -22,12 +22,12 @@ public class DeleteContactFromGroupTests extends TestBase {
         }
         ContactData contact = app.db().contacts().iterator().next();
         if (contact.getGroups().size() == 0) {
-            Groups groupsBefore = app.db().groups();
+            Groups before = app.db().groups();
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("name1").withHeader("header1").withFooter("footer1"));
-            Groups groupsAfter = app.db().groups();
-            List<GroupData> newGroup = new ArrayList<GroupData>(groupsAfter);
-            newGroup.removeAll(groupsBefore);
+            Groups after = app.db().groups();
+            List<GroupData> newGroup = new ArrayList<GroupData>(after);
+            newGroup.removeAll(before);
             int usedGroup = newGroup.iterator().next().getId();
             app.goTo().homePage();
             app.contact().addingToGroup(contact.getId(), usedGroup);
@@ -38,12 +38,12 @@ public class DeleteContactFromGroupTests extends TestBase {
     public void testDeleteContactFromGroup() {
         app.goTo().homePage();
         ContactData contact = app.db().contacts().iterator().next();
-        Groups groupsBefore = contact.getGroups();
+        Groups before = contact.getGroups();
         int usedGroup = contact.getGroups().iterator().next().getId();
         app.contact().deletionFromGroup(usedGroup, contact.getId());
         ContactData contactData = app.db().contacts().iterator().next();
-        Groups groupsAfter = contactData.getGroups();
+        Groups after = contactData.getGroups();
 
-        assertThat(groupsBefore.size() - 1, equalTo(groupsAfter.size()));
+        assertThat(before.size() - 1, equalTo(after.size()));
     }
 }
